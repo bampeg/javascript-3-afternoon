@@ -30,8 +30,18 @@
 */
 
 //Code Here
+class Employee {
+  constructor(first, last, email, age) {
+    this.first_name = first
+    this.last_name = last
+    this.email = email
+    this.age = age
+  }
 
-
+  makeWidget() {
+    return `${this.first_name} ${this.last_name} Widget`
+  }
+}
 
 ////////// PROBLEM 2 //////////
 
@@ -50,7 +60,22 @@
 */
 
 //Code Here
+class Manager {
+  constructor(first, last, email, age, reports = []) {
+    this.first_name = first
+    this.last_name = last
+    this.email = email
+    this.age = age
+    this.reports = reports
+  }
 
+  hire(employee) {
+    this.reports.push(employee)
+  }
+  fire(index) {
+    this.reports.splice(index, 1)
+  }
+}
 
 
 ////////// PROBLEM 3 //////////
