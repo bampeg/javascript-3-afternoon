@@ -1,4 +1,4 @@
-/* 
+/****************************************************************** 
   Once you complete a problem, refresh ./classes.html in your browser and check to see if the problem's test(s) are passing.
   Passed tests will be indicated by a green circle.
   Failed tests will be indicated by a red X.
@@ -10,10 +10,9 @@
 
   Let's work with some employees at a company.
   You work for Widget Co. They have hundreds of employees.
-*/
+*****************************************************************/
 
 ////////// PROBLEM 1 //////////
-
 /*
   Make a class to help us build all of the employees.
   Each employee has the following properties:
@@ -28,7 +27,6 @@
 
   Call your class Employee and receive all the data in the constructor in the order listed above.
 */
-
 //Code Here
 class Employee {
   constructor(first, last, email, age) {
@@ -37,14 +35,12 @@ class Employee {
     this.email = email
     this.age = age
   }
-
   makeWidget() {
     return `${this.first_name} ${this.last_name} Widget`
   }
 }
 
 ////////// PROBLEM 2 //////////
-
 /*
   Next, make a manager for Widget Co.
   The manager has all the same properties as an Employee.
@@ -58,17 +54,12 @@ class Employee {
 
   Call your new class Manager
 */
-
 //Code Here
-class Manager {
+class Manager extends Employee {
   constructor(first, last, email, age, reports = []) {
-    this.first_name = first
-    this.last_name = last
-    this.email = email
-    this.age = age
+    super(first, last, email, age)
     this.reports = reports
   }
-
   hire(employee) {
     this.reports.push(employee)
   }
@@ -77,9 +68,7 @@ class Manager {
   }
 }
 
-
 ////////// PROBLEM 3 //////////
-
 /*
   Managers for Widget Co. get promoted when they get more employees, and get a bonus when they fire employees.
   Progressive Managers have all the same properties as the manager,
@@ -99,13 +88,34 @@ class Manager {
 
   Call your new class ProgressiveManager
 */
-
 //Code Here
-
-
+class ProgressiveManager extends Manager {
+  constructor(first, last, email, age, reports = [], title = 'Not a manager', bonus = 0) {
+    super(first, last, email, age, reports)
+    this.title = title
+    this.bonus = bonus
+  }
+  hire(employee) {
+    this.reports.push(employee)
+    if (this.reports.length >= 101) {
+      this.title = "Bestest Manager"
+    } else if (this.reports.length >= 51) {
+      this.title = "Manager Plus"
+    } else if (this.reports.length >= 11) {
+      this.title = "Manager"
+    } else if (this.reports.length >= 4) {
+      this.title = "Mostly Manager"
+    } else if (this.reports.length >= 1) {
+      this.title = "Barely Manager"
+    }
+  }
+  fire(index) {
+    this.bonus += 100
+    this.reports.splice(index, 1)
+  }
+}
 
 ////////// PROBLEM 4 - Black Diamond //////////
-
 /*
   Widget Co has a factory that makes widgets.
   Factories have Machines.
@@ -126,7 +136,22 @@ class Manager {
         - This function returns a function that is called when the machine is done rebooting
         - It should set decrease wear_and_tear_count by 10, and set needs_reboot to false
 */
-
 //Code Here
-
-
+class Machine {
+  constructor() {
+    this.widgets_made_count = 0
+    this.wear_and_tear_count = 0
+    this.needs_reboot = false
+  }
+  makeWidgets(number) {
+    this.widgets_made_count += number
+    this.wear_and_tear_count += Math.floor(number / 50)
+  }
+  fixMachine() {
+    this.needs_reboot = true
+  }
+  reboot() {
+    this.wear_and_tear_count -= 10
+    return () => { }
+  }
+}

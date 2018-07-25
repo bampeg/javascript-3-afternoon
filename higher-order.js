@@ -65,7 +65,7 @@ const populations = [8175133, 3792621, 2695598, 2100263];
 //Code Here
 let totalPopulation = populations.reduce((accumulator, currentValue) => {
   return currentValue + accumulator
-})
+}, 0)
 
 
 
